@@ -11,13 +11,32 @@
   <body>
     <h1>Hello Dashboard!</h1>
     <div id="control">
-      <label for="numberColumn">Column:</label>
-      <input type="text" name="numberColumn" id="numberColumn" />
-      <br/>
-      <label for="numberRow">Row:</label>
-      <input type="text" name="numberRow" id="numberRow" />
-      <br/>
-      <button id="refreshButton">Refresh</button>
+      <table border="0" class="ui-widget">
+        <tbody class="ui-widget-content">
+          <tr>
+            <td class="floatR">
+              <label class="alignM" for="numberColumn">Column</label>
+              <label class="floatR ui-icon ui-icon-arrowthick-2-e-w"></label>
+            </td>
+            <td><input type="text" name="numberColumn" id="numberColumn" />
+            </td>
+          </tr>
+          <tr>
+            <td class="floatR">
+              <label class="alignM" for="numberRow">Row</label>
+              <label class="floatR ui-icon ui-icon-arrowthick-2-n-s"></label>
+            </td>
+            <td>
+              <input type="text" name="numberRow" id="numberRow" />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <button id="refreshButton" class="floatR">Refresh</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div id="main"></div>
     <script type="text/javascript" src="script.js"></script>
