@@ -1,4 +1,4 @@
-# charts-perf-test
+# Performance Testing for JavaScript Charting Library
 
 This is a simple static page to generate many charts with JavaScript library and figure out the potential performance issues.
 
