@@ -11,3 +11,4 @@ This is a simple static page to generate many charts with JavaScript library and
 ## Library
 
 * jQuery 2.1.3: http://jquery.com/download/
+* jQuery UI 1.11.4 Cupertino: http://jqueryui.com/download/
