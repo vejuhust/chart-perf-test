@@ -54,7 +54,9 @@ $(document).ready(function() {
 
         var main = $("#main");
         main.text("area for charts");
-        main.append("<div>wtf " + column + ", " + row + "</div>")
+        main.append("<div>wtf " + column + ", " + row + "</div>");
+
+        drawCharts();
     };
 
 });

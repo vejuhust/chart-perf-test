@@ -1,12 +1,12 @@
-$(function () {
+function drawCharts() {
 
     $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?', function (data_csv) {
         $('.container').each(function( index ) {
-            draw_charts($(this), data_csv);
+            draw_chart($(this), data_csv);
         });
     });
 
-    function draw_charts (section, data_csv) {
+    function draw_chart (section, data_csv) {
         section.highcharts({
 
             data: {
@@ -108,4 +108,4 @@ $(function () {
             }]
         });
     };
-});
+};
