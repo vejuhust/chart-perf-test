@@ -1,10 +1,30 @@
 function drawCharts() {
 
     $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?', function (data_csv) {
+        var time_start = performance.now();
+        var count = 0;
+
         $('.container').each(function( index ) {
             draw_chart($(this), data_csv);
+            count = index + 1;
         });
+
+        var time_end = performance.now();
+
+        recordExecutionTime(count, time_end - time_start);
     });
+
+    function recordExecutionTime(count, time_delta) {
+        var delta = (time_delta / 1000).toFixed(3);
+        var tpc = (time_delta / count / 1000).toFixed(3);
+
+        var log_str = 'count:' + count +
+            ', time: ' + delta + 'sec' +
+            ', tpc: ' + tpc + 'sec';
+
+        console.log(log_str);
+        document.title = log_str;
+    }
 
     function draw_chart (section, data_csv) {
         section.highcharts({
