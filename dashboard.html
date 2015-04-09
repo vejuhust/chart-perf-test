@@ -7,7 +7,16 @@
   </head>
   <body>
     <h1>Hello Dashboard!</h1>
-    <div id="output"></div>
+    <div id="control">
+      <label for="numberColumn">Column:</label>
+      <input type="text" name="numberColumn" id="numberColumn" />
+      <br/>
+      <label for="numberRow">Row:</label>
+      <input type="text" name="numberRow" id="numberRow" />
+      <br/>
+      <button id="refreshButton">Refresh</button>
+    </div>
+    <div id="main"></div>
     <script type="text/javascript" src="script.js"></script>
   </body>
 </html>
