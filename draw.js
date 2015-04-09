@@ -16,14 +16,21 @@ function drawCharts() {
 
     function recordExecutionTime(count, time_delta) {
         var delta = (time_delta / 1000).toFixed(3);
-        var tpc = (time_delta / count / 1000).toFixed(3);
+        var per = (time_delta / count / 1000).toFixed(3);
 
-        var log_str = 'count:' + count +
-            ', time: ' + delta + 'sec' +
-            ', tpc: ' + tpc + 'sec';
+        var log_str = 'c:' + count +
+            ', t:' + delta + 's' +
+            ', p:' + per + 's';
 
         console.log(log_str);
         document.title = log_str;
+
+        var table = $("#record-line");
+        var tableRow = $("<tr/>");
+        $("<td/>", { text: count}).appendTo(tableRow);
+        $("<td/>", { text: delta}).appendTo(tableRow);
+        $("<td/>", { text: per}).appendTo(tableRow);
+        tableRow.appendTo(table);
     }
 
     function draw_chart (section, data_csv) {
