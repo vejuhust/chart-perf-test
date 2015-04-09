@@ -46,16 +46,28 @@ $(document).ready(function() {
         return _val;
     };
 
+    function insertTableForCharts(column, row) {
+        var main = $("<div/>", { id: "main" });
+        var table = $("<div/>", { class: "div-table" });
+        for (var i = 0; i < row; i++) {
+            var line = $("<div/>", { class: "div-table-row" });
+            for (var j = 0; j < column; j++) {
+                var cell = $("<div/>", { 
+                    class: "div-table-col container", 
+                    text: "(" + (i + 1) + ", " + (j + 1) + ")" });
+                cell.appendTo(line);
+            };
+            line.appendTo(table);
+        };
+        table.appendTo(main);
+        $("#main").replaceWith(main);
+    }
+
     function main() {
-        console.log("run main!");
+        column = getValueOrDefault("numberColumn", _defaultColumn);
+        row = getValueOrDefault("numberRow", _defaultRow);
 
-        column = getValueOrDefault("numberColumn", _defaultColumn)
-        row = getValueOrDefault("numberRow", _defaultRow)
-
-        var main = $("#main");
-        main.text("area for charts");
-        main.append("<div>wtf " + column + ", " + row + "</div>");
-
+        insertTableForCharts(column, row);
         drawCharts();
     };
 

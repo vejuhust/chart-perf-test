@@ -16,5 +16,23 @@ h1 {
 }
 
 .alignM {
-    vertical-align: middle;
+  vertical-align: middle;
+}
+
+.div-table {
+  display: table;
+  width: auto;
+  margin: 0 auto;
+}
+.div-table-row {
+  display: table-row;
+  width: auto;
+  clear: both;
+}
+.div-table-col {
+  float: left;
+  min-width: 500px;
+  height: 400px;
+  margin: 0 auto;
+  display: table-column;
 }
