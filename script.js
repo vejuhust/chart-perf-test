@@ -1,6 +1,7 @@
 $(document).ready(function() {
     var _defaultColumn = 5;
     var _defaultRow = 10;
+    var _defaultMax = 5;
 
     console.log("script ready to run!");
 
@@ -10,12 +11,30 @@ $(document).ready(function() {
     });
     refreshButton.button();
 
-    $("#numberColumn").spinner();
-    $("#numberRow").spinner();
+    createSpinner("numberColumn", _defaultColumn, 6);
+    createSpinner("numberRow", _defaultRow, 100);
 
     main();
 
 
+    function createSpinner(_id, _default, _max) {
+        _id = "#" + _id;
+        if (!_max) {
+          _max = _defaultMax;
+        }
+
+        $(_id).spinner({
+          spin: function( event, ui ) {
+              if ( ui.value > _max ) {
+                $( this ).spinner( "value", _max );
+                return false;
+              } else if ( ui.value < 1 ) {
+                $( this ).spinner( "value", 1 );
+                return false;
+              }
+            }
+          }).spinner("value", _default);
+    };
 
     function getValueOrDefault(_id, _default) {
         _id = "#" + _id;
@@ -25,9 +44,9 @@ $(document).ready(function() {
             _val = _default;
         }
         return _val;
-    }
+    };
 
-    function main () {
+    function main() {
         console.log("run main!");
 
         column = getValueOrDefault("numberColumn", _defaultColumn)
@@ -36,6 +55,6 @@ $(document).ready(function() {
         var main = $("#main");
         main.text("area for charts");
         main.append("<div>wtf " + column + ", " + row + "</div>")
-    }
+    };
 
 });
