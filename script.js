@@ -8,6 +8,10 @@ $(document).ready(function() {
     refreshButton.on("click", function() {
         main();
     });
+    refreshButton.button();
+
+    $("#numberColumn").spinner();
+    $("#numberRow").spinner();
 
     main();
 
