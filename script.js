@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var _defaultColumn = 5;
+    var _defaultColumn = 3;
     var _defaultRow = 10;
     var _defaultMax = 5;
 
