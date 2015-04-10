@@ -20,8 +20,8 @@ function drawCharts() {
         var count = 0;
 
         $('.container').each(function( index ) {
-            chartFunc($(this), data_csv);
             count = index + 1;
+            chartFunc($(this), data_csv, count);
         });
 
         var time_end = performance.now();
@@ -49,10 +49,10 @@ function drawCharts() {
         tableRow.appendTo(table);
     }
 
-    function drawMapChart(section, data_csv) {
+    function drawMapChart(section, data_csv, index) {
     }
 
-    function drawDynamicChart(section, data_csv) {
+    function drawDynamicChart(section, data_csv, index) {
         section.highcharts({
             chart: {
                 type: 'spline',
@@ -72,7 +72,7 @@ function drawCharts() {
                 }
             },
             title: {
-                text: 'Live random data'
+                text: 'Live random data #' + index
             },
             xAxis: {
                 type: 'datetime',
@@ -122,7 +122,7 @@ function drawCharts() {
     };
 
 
-    function drawStaticChart(section, data_csv) {
+    function drawStaticChart(section, data_csv, index) {
         section.highcharts({
 
             data: {
@@ -130,7 +130,7 @@ function drawCharts() {
             },
 
             title: {
-                text: 'Daily visits at www.highcharts.com'
+                text: 'Daily visits at www.highcharts.com #' + index
             },
 
             subtitle: {
