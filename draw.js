@@ -1,27 +1,28 @@
 function drawCharts() {
+    var dataUrl = 'http://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?';
+    var chartFunc = drawStaticChart;
+    var chartType = "Static";
+    if ($("#chartTypeStatic:checked").length) {
+        chartFunc = drawStaticChart;
+        chartType = "Static";
+    }
+    else if ($("#chartTypeDynamic:checked").length) {
+        chartFunc = drawDynamicChart;
+        chartType = "Dynamic";
+    }
+    else if ($("#chartTypeMap:checked").length) {
+        chartFunc = drawMapChart;
+        chartType = "Map";
+        dataUrl = 'http://www.highcharts.com/samples/data/jsonp.php?filename=world-population.json&callback=?';
+    }
 
-    $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?', function (data_csv) {
-        var chartFunc = drawStaticChart;
-        var chartType = "Static";
-        if ($("#chartTypeStatic:checked").length) {
-            chartFunc = drawStaticChart;
-            chartType = "Static";
-        }
-        else if ($("#chartTypeDynamic:checked").length) {
-            chartFunc = drawDynamicChart;
-            chartType = "Dynamic";
-        }
-        else if ($("#chartTypeMap:checked").length) {
-            chartFunc = drawMapChart;
-            chartType = "Map";
-        }
-
+    $.getJSON(dataUrl, function (rawData) {
         var time_start = performance.now();
         var count = 0;
 
         $('.container').each(function( index ) {
             count = index + 1;
-            chartFunc($(this), data_csv, count);
+            chartFunc($(this), rawData, count);
         });
 
         var time_end = performance.now();
@@ -49,10 +50,61 @@ function drawCharts() {
         tableRow.appendTo(table);
     }
 
-    function drawMapChart(section, data_csv, index) {
+    function drawMapChart(section, rawData, index) {
+        var mapData = Highcharts.geojson(Highcharts.maps['custom/world']);
+
+        // Correct UK to GB in raw data
+        $.each(rawData, function () {
+            if (this.code === 'UK') {
+                this.code = 'GB';
+            }
+        });
+
+        section.highcharts('Map', {
+            chart : {
+                borderWidth : 1
+            },
+
+            title: {
+                text: 'World population 2010 by country #' + index
+            },
+
+            subtitle : {
+                text : 'Demo of Highcharts map with bubbles'
+            },
+
+            legend: {
+                enabled: false
+            },
+
+            mapNavigation: {
+                enabled: true,
+                buttonOptions: {
+                    verticalAlign: 'bottom'
+                }
+            },
+
+            series : [{
+                name: 'Countries',
+                mapData: mapData,
+                color: '#E0E0E0',
+                enableMouseTracking: false
+            }, {
+                type: 'mapbubble',
+                mapData: mapData,
+                name: 'Population 2010',
+                joinBy: ['iso-a2', 'code'],
+                data: rawData,
+                minSize: 4,
+                maxSize: '12%',
+                tooltip: {
+                    pointFormat: '{point.code}: {point.z} thousands'
+                }
+            }]
+        });
     }
 
-    function drawDynamicChart(section, data_csv, index) {
+    function drawDynamicChart(section, rawData, index) {
         section.highcharts({
             chart: {
                 type: 'spline',
@@ -122,11 +174,11 @@ function drawCharts() {
     };
 
 
-    function drawStaticChart(section, data_csv, index) {
+    function drawStaticChart(section, rawData, index) {
         section.highcharts({
 
             data: {
-                csv: data_csv
+                csv: rawData
             },
 
             title: {
