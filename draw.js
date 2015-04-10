@@ -1,20 +1,35 @@
 function drawCharts() {
 
     $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=analytics.csv&callback=?', function (data_csv) {
+        var chartFunc = drawStaticChart;
+        var chartType = "Static";
+        if ($("#chartTypeStatic:checked").length) {
+            chartFunc = drawStaticChart;
+            chartType = "Static";
+        }
+        else if ($("#chartTypeDynamic:checked").length) {
+            chartFunc = drawDynamicChart;
+            chartType = "Dynamic";
+        }
+        else if ($("#chartTypeMap:checked").length) {
+            chartFunc = drawMapChart;
+            chartType = "Map";
+        }
+
         var time_start = performance.now();
         var count = 0;
 
         $('.container').each(function( index ) {
-            drawDynamicChart($(this), data_csv);
+            chartFunc($(this), data_csv);
             count = index + 1;
         });
 
         var time_end = performance.now();
 
-        recordExecutionTime(count, time_end - time_start);
+        recordExecutionTime(chartType, count, time_end - time_start);
     });
 
-    function recordExecutionTime(count, time_delta) {
+    function recordExecutionTime(type, count, time_delta) {
         var delta = (time_delta / 1000).toFixed(3);
         var per = (time_delta / count / 1000).toFixed(3);
 
@@ -27,10 +42,14 @@ function drawCharts() {
 
         var table = $("#record-line");
         var tableRow = $("<tr/>");
+        $("<td/>", { text: type}).appendTo(tableRow);
         $("<td/>", { text: count}).appendTo(tableRow);
         $("<td/>", { text: delta}).appendTo(tableRow);
         $("<td/>", { text: per}).appendTo(tableRow);
         tableRow.appendTo(table);
+    }
+
+    function drawMapChart(section, data_csv) {
     }
 
     function drawDynamicChart(section, data_csv) {

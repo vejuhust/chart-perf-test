@@ -41,6 +41,15 @@
           </tr>
           <tr>
             <td colspan="2">
+              <div id="chartType" class="floatR">
+                <input type="radio" name="radio" id="chartTypeStatic" checked="checked"><label for="chartTypeStatic">Static</label>
+                <input type="radio" name="radio" id="chartTypeDynamic"><label for="chartTypeDynamic">Dynamic</label>
+                <input type="radio" name="radio" id="chartTypeMap"><label for="chartTypeMap">Map</label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
               <button id="refreshButton" class="floatR">Refresh</button>
             </td>
           </tr>
@@ -52,6 +61,7 @@
       <table border="0" class="ui-widget">
         <thead class="ui-widget-header">
           <tr>
+            <th>Type</th>
             <th>Count</th>
             <th>Total Secs</th>
             <th>Secs Per Chart</th>

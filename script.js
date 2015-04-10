@@ -5,17 +5,21 @@ $(document).ready(function() {
 
     console.log("script ready to run!");
 
-    var refreshButton = $("#refreshButton");
-    refreshButton.on("click", function() {
-        main();
-    });
-    refreshButton.button();
-
-    createSpinner("numberColumn", _defaultColumn, 6);
-    createSpinner("numberRow", _defaultRow, 100);
-
+    createControlPanel();
     main();
 
+    function createControlPanel() {
+        createSpinner("numberColumn", _defaultColumn, 6);
+        createSpinner("numberRow", _defaultRow, 100);
+
+        $("#chartType").buttonset();
+
+        var refreshButton = $("#refreshButton");
+        refreshButton.on("click", function() {
+            main();
+        });
+        refreshButton.button();
+    }
 
     function createSpinner(_id, _default, _max) {
         _id = "#" + _id;
@@ -52,8 +56,8 @@ $(document).ready(function() {
         for (var i = 0; i < row; i++) {
             var line = $("<div/>", { class: "div-table-row" });
             for (var j = 0; j < column; j++) {
-                var cell = $("<div/>", { 
-                    class: "div-table-col container", 
+                var cell = $("<div/>", {
+                    class: "div-table-col container",
                     text: "(" + (i + 1) + ", " + (j + 1) + ")" });
                 cell.appendTo(line);
             };
